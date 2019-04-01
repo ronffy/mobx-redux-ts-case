@@ -1,0 +1,4 @@
+
+.marketRoot .marketItem:nth-child(even) {
+  background: #eee;
+}

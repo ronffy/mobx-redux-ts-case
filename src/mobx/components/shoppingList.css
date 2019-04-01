@@ -1,0 +1,9 @@
+
+.shoppingRoot .shoppingItem {
+  display: flex;
+  justify-content: space-between;
+}
+
+.shoppingRoot .shoppingItem:nth-child(even) {
+  background: #eee;
+}
