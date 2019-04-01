@@ -1,44 +1,30 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
+## mobx-redux-ts-case
+在 typescript 环境下，分别用 mobx、redux 实现商场购物的案例
 
-In the project directory, you can run:
+### 从一个需求开始
 
-### `npm start`
+需求简单描述：
+一家书店有一些书籍，展示在页面上。
+用户可以选购书籍到购物车，在购物车里可以增减商品
+且某些特定商品满足特定条件时可以享受优惠活动
 
-Runs the app in the development mode.<br>
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+商店书籍信息：
+react书籍：5本 单价11元
+mobx书籍：5本 单价12元
+redux书籍：5本 单价13元
 
-The page will reload if you make edits.<br>
-You will also see any lint errors in the console.
+优惠活动信息：
+react + mobx 满 40元可优惠3元
 
-### `npm test`
 
-Launches the test runner in the interactive watch mode.<br>
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### 使用 mobx 遇到的问题，临时记录
 
-### `npm run build`
+1. 什么时候需要用 observer 包住组件，不是太确定
 
-Builds the app for production to the `build` folder.<br>
-It correctly bundles React in production mode and optimizes the build for the best performance.
 
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+2. 为什么 mobx devtools 开始是空白
 
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+因为 mobx 是多 store , 开始 mobx 是不知道该显示哪个 store 的，
+所以 mobx devtools 采用哪个 store 改变，打印哪个 store 的日志的方式
