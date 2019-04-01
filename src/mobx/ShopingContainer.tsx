@@ -1,9 +1,14 @@
 import React, { Component } from 'react';
 import { observer } from 'mobx-react';
 import ShopingList from './components/ShopingList';
+import { IStore } from './store';
+
+interface Iprops {
+  store: IStore
+}
 
 @observer
-class ShopingContainer extends Component {
+class ShopingContainer extends Component<Iprops> {
   render() {
     const { store } = this.props;
     const { buyedList, buyedTotal, offerTotal, onAddBuy, onCutBuy } = store;

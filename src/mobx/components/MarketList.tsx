@@ -1,14 +1,22 @@
 import React from 'react';
-import MarketView from './MarketView';
+import MarketView, { IMarketViewProps } from './MarketView';
 import { observer } from 'mobx-react';
 import classNames from 'classnames';
 import './marketList.css';
+import { IMarketListItem, onAddBuy } from '../interface';
 
-const MarketList = observer(({ list, onAddBuy, ...otherProps }) => (
+interface Iprops {
+  list: IMarketListItem[];
+  onAddBuy: onAddBuy;
+  className?: string;
+  [props: string]: any;
+}
+
+const MarketList = observer(({ list, onAddBuy, ...otherProps }: Iprops) => (
   <div className={classNames('marketRoot', otherProps.className)} {...otherProps}>
     {
       list.map(({ name, price, amount, id }) => {
-        const bookviewProps = {
+        const bookviewProps: IMarketViewProps = {
           name,
           price,
           amount

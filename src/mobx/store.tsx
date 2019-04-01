@@ -1,8 +1,25 @@
 import { observable, computed, action, autorun, toJS } from 'mobx';
+import { IMarketListItem, Id, onAddBuy, onCutBuy } from './interface';
 
-class Store {
+export interface IStoreProps {
+  marketList: IMarketListItem[];
+  buyedList: IMarketListItem[];
+  buyedTotal: number;
+  offer1: number;
+  offerTotal: number;
+}
+
+export interface IStoreMetheds {
+  onAddBuy: onAddBuy;
+  onCutBuy: onCutBuy;
+}
+
+export interface IStore extends IStoreProps, IStoreMetheds {
+}
+
+class Store implements IStore {
   @observable
-  marketList = [];
+  marketList: IMarketListItem[] = [];
 
   constructor() {
     setTimeout(() => {
@@ -33,12 +50,12 @@ class Store {
   }
 
   @computed
-  get buyedList() {
+  get buyedList(): IMarketListItem[] {
     return this.marketList.filter(({ buyAmount }) => buyAmount > 0);
   }
 
   @computed
-  get buyedTotal() {
+  get buyedTotal(): number {
     let total = 0;
     for (const { buyAmount, price } of this.buyedList) {
       if (!buyAmount) {
@@ -50,7 +67,7 @@ class Store {
   }
 
   @computed
-  get offer1() {
+  get offer1(): number {
     // 优惠活动1：react + mobx 满 40元可优惠3元
     let offerTotal = 0;
     let findAmount = 0;
@@ -71,12 +88,12 @@ class Store {
   }
 
   @computed
-  get offerTotal() {
+  get offerTotal(): number {
     return this.offer1;
   }
 
   @action
-  onAddBuy = (id) => {
+  onAddBuy = (id: Id): void => {
     for (const [index, item] of this.marketList.entries()) {
       if (item.id !== id) {
         continue;
@@ -94,7 +111,7 @@ class Store {
   }
 
   @action
-  onCutBuy = action((id) => {
+  onCutBuy = action((id: Id): void => {
     for (const [index, item] of this.marketList.entries()) {
       if (item.id !== id) {
         continue;

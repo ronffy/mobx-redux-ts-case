@@ -1,6 +1,12 @@
 import React from 'react';
 
-const ShoppingView = ({ name, price, amount }) => (
+export interface IShoppingViewProps {
+  name: string;
+  price: number;
+  amount: number;
+}
+
+const ShoppingView = ({ name, price, amount }: IShoppingViewProps) => (
   <div>
     <div>书名:{name}</div>
     <div>单价:{price}</div>

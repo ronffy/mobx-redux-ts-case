@@ -1,6 +1,12 @@
 import React from 'react';
 
-const MarketView = ({ name, price, amount }) => (
+export interface IMarketViewProps {
+  name: string;
+  price: number;
+  amount: number;
+}
+
+const MarketView = ({ name, price, amount }: IMarketViewProps) => (
   <div>
     <div>书名:{name}</div>
     <div>单价:{price}</div>

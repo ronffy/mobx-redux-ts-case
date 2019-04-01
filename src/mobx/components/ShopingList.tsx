@@ -1,14 +1,23 @@
 import React from 'react';
-import ShoppingView from './ShoppingView';
+import ShoppingView, { IShoppingViewProps } from './ShoppingView';
 import { observer } from 'mobx-react';
 import classNames from 'classnames';
 import './shoppingList.css';
+import { IMarketListItem, onAddBuy, onCutBuy } from '../interface';
 
-const ShoppingList = observer(({ list, onAddBuy, onCutBuy, ...otherProps }) => (
+interface Iprops {
+  list: IMarketListItem[];
+  onAddBuy: onAddBuy;
+  onCutBuy: onCutBuy;
+  className?: string;
+  [props: string]: any;
+}
+
+const ShoppingList = observer(({ list, onAddBuy, onCutBuy, ...otherProps }: Iprops) => (
   <div className={classNames('shoppingRoot', otherProps.className)} {...otherProps}>
     {
       list.map(({ name, price, amount, buyAmount, id }) => {
-        const bookviewProps = {
+        const bookviewProps: IShoppingViewProps = {
           name,
           price,
           amount: buyAmount

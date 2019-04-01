@@ -6,7 +6,12 @@ import DevTools from 'mobx-react-devtools';
 import classNames from 'classnames';
 import './index.css';
 
-export default class Bookstore extends Component {
+interface IProps {
+  className: string;
+  [props: string]: any;
+}
+
+export default class Bookstore extends Component<IProps> {
   render() {
     const { className } = this.props;
     return (
