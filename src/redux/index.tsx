@@ -6,7 +6,18 @@ import { Provider } from 'react-redux';
 import store from './store';
 import './index.css';
 
-export default class Bookstore extends Component {
+export interface BookstoreBaseProps {
+  className?: string;
+  children?: React.ReactNode;
+}
+
+export type BookstoreNativeProps = {
+  onClick?: React.MouseEventHandler<HTMLDivElement>;
+} & BookstoreBaseProps;
+
+export type BookstoreProps = BookstoreNativeProps;
+
+export default class Bookstore extends Component<BookstoreProps> {
   render() {
     const { className } = this.props;
     return (

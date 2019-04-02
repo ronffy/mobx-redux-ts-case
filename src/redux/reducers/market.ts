@@ -1,6 +1,19 @@
 import { BUY_ADD, BUY_CUT, MARKET_REQUESR_MARKETLIST } from '../actions';
 import produce from 'immer';
-import { getOffer1Amount } from '../utils';
+import { getOfferAmount } from '../utils';
+import { MarketListItemProps } from '../interface';
+
+interface MarketListMapProps {
+  [id: string]: MarketListItemProps
+}
+
+interface MarketStateProps {
+  marketListIds: string[];
+  marketListMap: MarketListMapProps;
+  buyedListIds: string[];
+  buyedTotal: number;
+  offer1Amount: number;
+}
 
 const defaultState = {
   marketListIds: [],
@@ -10,7 +23,26 @@ const defaultState = {
   offer1Amount: 0,
 }
 
-const market = produce((draftState, action) => {
+// 优惠活动1：react + mobx 满 40元可优惠3元
+const offer1Option = {
+  offerIds: ['1', '2'],
+  offerAmount: 3,
+  buyedTotal: 40
+}
+
+interface MarketAction {
+  type: string;
+  payload: {
+    id?: string;
+    marketList?: MarketListItemProps[]
+  }
+}
+
+interface Market {
+  (state: MarketStateProps | undefined, action: any): MarketStateProps;
+}
+
+const market: Market = produce((draftState, action) => {
   const { type, payload } = action;
   if (!draftState) {
     return defaultState;
@@ -28,7 +60,7 @@ const market = produce((draftState, action) => {
       currItem.amount--;
       currItem.buyAmount++;
       draftState.buyedTotal += currItem.price;
-      draftState.offer1Amount = getOffer1Amount(buyedListIds, marketListMap);
+      draftState.offer1Amount = getOfferAmount<MarketListItemProps>(buyedListIds, marketListMap, offer1Option);
 
       if (!buyedListIds.includes(payload.id)) {
         buyedListIds.push(payload.id);
@@ -43,7 +75,7 @@ const market = produce((draftState, action) => {
       currItem.amount++;
       currItem.buyAmount--;
       draftState.buyedTotal -= currItem.price;
-      draftState.offer1Amount = getOffer1Amount(buyedListIds, marketListMap);
+      draftState.offer1Amount = getOfferAmount(buyedListIds, marketListMap, offer1Option);
 
       const buyedIndex = buyedListIds.indexOf(payload.id);
       if (!currItem.buyAmount && buyedIndex > -1) {
