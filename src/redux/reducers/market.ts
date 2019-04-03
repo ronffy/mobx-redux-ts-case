@@ -1,13 +1,13 @@
 import { BUY_ADD, BUY_CUT, MARKET_REQUESR_MARKETLIST } from '../actions';
 import produce from 'immer';
 import { getOfferAmount } from '../utils';
-import { MarketListItemProps } from '../interface';
+import { MarketListItemProps } from '../types';
 
 interface MarketListMapProps {
   [id: string]: MarketListItemProps
 }
 
-interface MarketStateProps {
+export interface MarketStateProps {
   marketListIds: string[];
   marketListMap: MarketListMapProps;
   buyedListIds: string[];
@@ -15,7 +15,7 @@ interface MarketStateProps {
   offer1Amount: number;
 }
 
-const defaultState = {
+const defaultState: MarketStateProps = {
   marketListIds: [],
   marketListMap: {},
   buyedListIds: [],
@@ -30,7 +30,7 @@ const offer1Option = {
   buyedTotal: 40
 }
 
-interface MarketAction {
+export interface MarketAction {
   type: string;
   payload: {
     id?: string;

@@ -2,7 +2,7 @@ import React from 'react';
 import MarketView, { MarketViewProps } from './MarketView';
 import classNames from 'classnames';
 import './marketList.css';
-import { MarketListItemProps, onAddBuy } from '../interface';
+import { MarketListItemProps, onAddBuy } from '../types';
 
 export interface MarketListBaseProps {
   className?: string;

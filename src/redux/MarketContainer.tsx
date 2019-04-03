@@ -1,10 +1,13 @@
 import React, { Component } from 'react';
 import MarketList from './components/MarketList';
-import { connect } from 'react-redux';
+import { connect, Connect, DispatchProp } from 'react-redux';
+import { Dispatch } from 'redux';
+import { ThunkDispatch } from 'redux-thunk';
 import { BUY_ADD, handleRequestMarketList } from './actions';
 import { getListFromMap } from './utils';
+import { StoreState, MarketStateProps } from './reducers';
 
-const mapStateToProps = ({ market }) => {
+const mapStateToProps = ({ market }: StoreState) => {
   const { marketListIds, marketListMap } = market;
   const marketList = getListFromMap(marketListIds, marketListMap)
   return {
@@ -12,8 +15,8 @@ const mapStateToProps = ({ market }) => {
   }
 }
 
-const mapDispatchToProps = (dispatch) => ({
-  onAddBuy(id) {
+const mapDispatchToProps = (dispatch: Dispatch) => ({
+  onAddBuy(id: string) {
     dispatch({
       type: BUY_ADD,
       payload: {
@@ -22,12 +25,17 @@ const mapDispatchToProps = (dispatch) => ({
     })
   },
   onRequestMarketList() {
-    dispatch(handleRequestMarketList())
+    dispatch(handleRequestMarketList() as any)
   }
 })
 
-@connect(mapStateToProps, mapDispatchToProps)
-class MarketContainer extends Component {
+interface MarketContainerProps extends DispatchProp {
+  marketList: MarketStateProps[];
+  onAddBuy: (id: string) => void;
+  onRequestMarketList: () => void;
+}
+
+class MarketContainer extends Component<MarketContainerProps> {
 
   componentDidMount() {
     this.props.onRequestMarketList();
@@ -47,4 +55,4 @@ class MarketContainer extends Component {
   }
 }
 
-export default MarketContainer;
+export default connect(mapStateToProps, mapDispatchToProps)(MarketContainer);

@@ -1,5 +1,5 @@
 
-import { MarketListItemProps } from '../interface';
+import { MarketListItemProps } from '../types';
 
 export function requestMarketList(): Promise<MarketListItemProps[]> {
   return new Promise((res) => {

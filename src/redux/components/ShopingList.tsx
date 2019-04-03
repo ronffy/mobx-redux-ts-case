@@ -2,7 +2,7 @@ import React from 'react';
 import ShoppingView, { ShoppingViewProps } from './ShoppingView';
 import classNames from 'classnames';
 import './shoppingList.css';
-import { MarketListItemProps, onAddBuy, onCutBuy } from '../interface';
+import { MarketListItemProps, onAddBuy, onCutBuy } from '../types';
 
 export interface ShoppingListBaseProps {
   className?: string;

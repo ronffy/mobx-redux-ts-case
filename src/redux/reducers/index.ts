@@ -1,6 +1,15 @@
 import { combineReducers } from 'redux';
-import market from './market';
+import market, { MarketStateProps } from './market';
 
-export default combineReducers({
+type StoreState = {
+  readonly market: MarketStateProps;
+};
+
+export {
+  MarketStateProps,
+  StoreState
+}
+
+export default combineReducers<StoreState>({
   market,
 })
